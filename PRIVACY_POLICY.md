@@ -84,7 +84,7 @@
 본 게임의 개인정보처리방침 또는 데이터 보호와 관련하여 궁금한 점이나 의견이 있으신 경우 아래 연락처로 문의해 주시기 바랍니다.
 
 * **앱 이름**: 프로스트 플로우 (FrostPlow: Cozy Snow Clearance)
-* **패키지명**: `com.frostplow.game`
+* **패키지명**: `com.frostplow.cozysnowclearance`
 * **개발자 / 운영자**: FrostPlow Team
 * **문의 이메일**: `support@frostplow.com` *(또는 귀하의 구글 개발자 등록 이메일)*
 

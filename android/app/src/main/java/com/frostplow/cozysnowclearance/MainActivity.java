@@ -1,4 +1,4 @@
-package com.frostplow.game;
+package com.frostplow.cozysnowclearance;
 
 import com.getcapacitor.BridgeActivity;
 
