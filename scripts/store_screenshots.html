@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>FrostPlow Play Store Screenshots (1920x1080)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=JetBrains+Mono:wght@700&family=Noto+Sans+KR:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #040914;
+      font-family: 'Fredoka', 'Noto Sans KR', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    #stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 1;
+    }
+
+    /* Top Marketing Header Banner (Google Play Highlight Header) */
+    .promo-header {
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.8));
+      pointer-events: none;
+    }
+    .promo-title {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #fde047;
+      text-shadow: 0 4px 0 #b45309, 0 8px 20px rgba(0, 0, 0, 0.9);
+      white-space: nowrap;
+    }
+    .promo-title.cyan-theme {
+      color: #38bdf8;
+      text-shadow: 0 4px 0 #0369a1, 0 8px 20px rgba(0, 0, 0, 0.9);
+    }
+    .promo-title.emerald-theme {
+      color: #34d399;
+      text-shadow: 0 4px 0 #065f46, 0 8px 20px rgba(0, 0, 0, 0.9);
+    }
+    .promo-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 24px;
+      background: rgba(11, 21, 40, 0.9);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      color: #e2e8f0;
+      font-size: 20px;
+      font-weight: 800;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+
+    /* Modal Card Overlay (Scenes 3, 4, 5) */
+    .modal-overlay {
+      position: absolute;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1040px;
+      z-index: 15;
+      background: rgba(15, 23, 42, 0.95);
+      border: 2px solid #38bdf8;
+      border-radius: 36px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.25);
+      padding: 36px 44px;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+      padding-bottom: 18px;
+    }
+    .modal-title {
+      font-size: 32px;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+    }
+    .coins-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px solid #f59e0b;
+      border-radius: 20px;
+      color: #fde047;
+      font-size: 22px;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Upgrade Grid (Scene 3) */
+    .upgrade-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .upgrade-card {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+      border-radius: 24px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .upgrade-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .upgrade-card-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .upgrade-lvl {
+      font-size: 16px;
+      color: #94a3b8;
+      font-weight: 700;
+    }
+    .upgrade-bar-bg {
+      width: 100%;
+      height: 14px;
+      background: #0f172a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .upgrade-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      border-radius: 8px;
+    }
+    .upgrade-btn {
+      align-self: flex-end;
+      padding: 10px 24px;
+      border-radius: 16px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24);
+      color: #0b1528;
+      font-size: 18px;
+      font-weight: 900;
+      border: none;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Skins Showcase (Scene 4) */
+    .skins-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+    .skin-item {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid #334155;
+      border-radius: 24px;
+      padding: 20px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .skin-item.active {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.12);
+      box-shadow: 0 0 24px rgba(245, 158, 11, 0.35);
+    }
+    .skin-icon-box {
+      width: 90px;
+      height: 90px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      background: #0f172a;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+    }
+    .skin-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .skin-status {
+      padding: 6px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      background: #10b981;
+      color: #042f2e;
+    }
+    .skin-status.locked {
+      background: #f59e0b;
+      color: #451a03;
+    }
+
+    /* Lucky Wheel Showcase (Scene 5) */
+    .wheel-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 40px;
+      padding: 20px 0;
+    }
+    .wheel-disc {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 8px solid #f59e0b;
+      box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
+      background: conic-gradient(
+        #38bdf8 0deg 45deg,
+        #f59e0b 45deg 90deg,
+        #10b981 90deg 135deg,
+        #ec4899 135deg 180deg,
+        #8b5cf6 180deg 225deg,
+        #f97316 225deg 270deg,
+        #14b8a6 270deg 315deg,
+        #eab308 315deg 360deg
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .wheel-hub {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 4px solid #fef08a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      color: #fef08a;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+    }
+    .rewards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 460px;
+    }
+    .reward-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 22px;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+      border-radius: 18px;
+    }
+    .reward-day {
+      font-size: 18px;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .reward-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fde047;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* HUD Elements (Scene 1 - Gameplay) */
+    .hud-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .hud-top-left {
+      position: absolute;
+      top: 130px;
+      left: 60px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      padding: 16px 26px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .hud-district {
+      font-size: 22px;
+      font-weight: 800;
+      color: #38bdf8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hud-progress-bg {
+      width: 280px;
+      height: 16px;
+      background: #0f172a;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #334155;
+    }
+    .hud-progress-fill {
+      width: 92%;
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #38bdf8);
+      border-radius: 8px;
+    }
+    .hud-score-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Combo Pill (Scene 1) */
+    .combo-pill {
+      position: absolute;
+      top: 130px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.96), rgba(30, 41, 59, 0.96));
+      border: 2.5px solid #f59e0b;
+      padding: 14px 34px;
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4);
+    }
+    .combo-multiplier {
+      font-size: 42px;
+      font-weight: 900;
+      color: #f59e0b;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .combo-label {
+      font-size: 22px;
+      font-weight: 900;
+      color: #38bdf8;
+    }
+
+    /* Speedometer & Nitro (Scene 1) */
+    .speedo-box {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      border: 2px solid rgba(56, 189, 248, 0.4);
+      padding: 14px 36px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .speedo-val {
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .speedo-unit {
+      font-size: 16px;
+      color: #94a3b8;
+    }
+
+    /* On-Screen Touch Controls (Scene 1) */
+    .touch-left {
+      position: absolute;
+      bottom: 40px;
+      left: 50px;
+      display: flex;
+      gap: 20px;
+    }
+    .touch-btn {
+      width: 105px;
+      height: 105px;
+      border-radius: 28px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 3.5px solid #38bdf8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #38bdf8;
+      font-size: 44px;
+      box-shadow: 0 8px 25px rgba(6, 182, 212, 0.45);
+    }
+    .touch-btn span {
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .touch-right {
+      position: absolute;
+      bottom: 40px;
+      right: 50px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+    .pedal-rev {
+      width: 95px;
+      height: 95px;
+      border-radius: 26px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 3.5px solid #f43f5e;
+      color: #f43f5e;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      box-shadow: 0 8px 25px rgba(244, 63, 94, 0.45);
+    }
+    .pedal-gas {
+      width: 120px;
+      height: 120px;
+      border-radius: 32px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      border: 4px solid #a7f3d0;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 54px;
+      box-shadow: 0 10px 35px rgba(16, 185, 129, 0.6);
+    }
+    .pedal-boost {
+      width: 105px;
+      height: 105px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: 3.5px solid #fef08a;
+      color: #0b1528;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+      box-shadow: 0 8px 28px rgba(245, 158, 11, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <!-- Background Canvas Scene -->
+    <canvas id="canvas" width="1920" height="1080"></canvas>
+
+    <!-- Marketing Promo Header (Dynamic via URL Param) -->
+    <div class="promo-header" id="promoHeader">
+      <div class="promo-title" id="promoTitle">❄️ 속 시원한 3D 제설 쾌감! ❄️</div>
+      <div class="promo-subtitle" id="promoSubtitle">눈을 밀어내며 도로를 깨끗하게 청소하세요</div>
+    </div>
+
+    <!-- Container for dynamic scene UI overlay -->
+    <div id="uiOverlay"></div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const W = 1920;
+    const H = 1080;
+
+    // Parse URL parameter: scene=1 (Gameplay), scene=2 (Title), scene=3 (Garage), scene=4 (Skins), scene=5 (Lucky Wheel)
+    const params = new URLSearchParams(window.location.search);
+    const sceneId = parseInt(params.get('scene') || '1', 10);
+
+    // 1. Draw rich 3D winter background scene
+    function drawBackground(isGameplay) {
+      // Deep Twilight Sky
+      const sky = ctx.createLinearGradient(0, 0, 0, H);
+      sky.addColorStop(0, '#030814');
+      sky.addColorStop(0.35, '#0a1d3b');
+      sky.addColorStop(0.65, '#122b54');
+      sky.addColorStop(1, '#1e293b');
+      ctx.fillStyle = sky;
+      ctx.fillRect(0, 0, W, H);
+
+      // Aurora Borealis
+      function drawAurora(yBase, color1, color2, amplitude, freq, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.moveTo(0, yBase);
+        for (let x = 0; x <= W; x += 30) {
+          const y = yBase + Math.sin(x * freq) * amplitude + Math.cos(x * freq * 1.5) * (amplitude * 0.5);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(W, yBase + 240);
+        ctx.lineTo(0, yBase + 240);
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(0, yBase - amplitude, 0, yBase + 240);
+        grad.addColorStop(0, 'transparent');
+        grad.addColorStop(0.35, color1);
+        grad.addColorStop(0.7, color2);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.fill();
+        ctx.restore();
+      }
+      drawAurora(140, '#06b6d4', '#10b981', 65, 0.002, 0.5);
+      drawAurora(200, '#8b5cf6', '#3b82f6', 80, 0.0018, 0.4);
+
+      // Glowing Moon
+      ctx.save();
+      ctx.fillStyle = '#ffffff';
+      ctx.shadowColor = '#bae6fd';
+      ctx.shadowBlur = 50;
+      ctx.beginPath();
+      ctx.arc(220, 150, 48, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Distant Alpine Mountain Peaks
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.moveTo(0, 540);
+      ctx.lineTo(260, 320);
+      ctx.lineTo(520, 450);
+      ctx.lineTo(820, 290);
+      ctx.lineTo(1150, 500);
+      ctx.lineTo(1480, 310);
+      ctx.lineTo(1780, 460);
+      ctx.lineTo(1920, 340);
+      ctx.lineTo(1920, 750);
+      ctx.lineTo(0, 750);
+      ctx.closePath();
+      ctx.fill();
+
+      // Mountain Snow Caps
+      function drawSnowCap(px, py, w, h) {
+        ctx.fillStyle = '#e0f2fe';
+        ctx.beginPath();
+        ctx.moveTo(px, py);
+        ctx.lineTo(px - w/2, py + h);
+        ctx.lineTo(px - w/4, py + h * 0.85);
+        ctx.lineTo(px, py + h * 1.1);
+        ctx.lineTo(px + w/3, py + h * 0.9);
+        ctx.lineTo(px + w/2, py + h);
+        ctx.closePath();
+        ctx.fill();
+      }
+      drawSnowCap(260, 320, 110, 65);
+      drawSnowCap(820, 290, 130, 80);
+      drawSnowCap(1480, 310, 120, 70);
+
+      // Midground Snow Ridge
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.moveTo(0, 560);
+      ctx.bezierCurveTo(450, 510, 950, 580, 1400, 520);
+      ctx.bezierCurveTo(1650, 490, 1800, 540, 1920, 510);
+      ctx.lineTo(1920, 850);
+      ctx.lineTo(0, 850);
+      ctx.closePath();
+      ctx.fill();
+
+      // Pine Trees Generator
+      function drawPineTree(x, y, scale) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+        ctx.fillStyle = '#451a03';
+        ctx.fillRect(-6, 0, 12, 24);
+
+        const tiers = [
+          { y: -16, w: 38, h: 36 },
+          { y: -42, w: 30, h: 32 },
+          { y: -66, w: 22, h: 28 }
+        ];
+        for (const t of tiers) {
+          ctx.fillStyle = '#064e3b';
+          ctx.beginPath();
+          ctx.moveTo(0, t.y - t.h);
+          ctx.lineTo(t.w, t.y);
+          ctx.lineTo(-t.w, t.y);
+          ctx.closePath();
+          ctx.fill();
+
+          ctx.fillStyle = 'rgba(240, 249, 255, 0.9)';
+          ctx.beginPath();
+          ctx.moveTo(0, t.y - t.h);
+          ctx.lineTo(t.w * 0.7, t.y - t.h * 0.3);
+          ctx.lineTo(0, t.y - t.h * 0.2);
+          ctx.lineTo(-t.w * 0.7, t.y - t.h * 0.3);
+          ctx.closePath();
+          ctx.fill();
+        }
+        ctx.restore();
+      }
+
+      // Forest
+      const trees = [
+        [80, 560, 1.3], [160, 550, 1.6], [240, 570, 1.4], [340, 545, 1.2],
+        [1550, 530, 1.3], [1640, 520, 1.5], [1730, 540, 1.8], [1840, 510, 1.4]
+      ];
+      for (const [tx, ty, ts] of trees) drawPineTree(tx, ty, ts);
+
+      // Foreground Snowy Ground
+      ctx.fillStyle = '#e2e8f0';
+      ctx.beginPath();
+      ctx.moveTo(0, 640);
+      ctx.bezierCurveTo(480, 610, 1050, 660, 1500, 610);
+      ctx.bezierCurveTo(1750, 590, 1850, 630, 1920, 610);
+      ctx.lineTo(1920, 1080);
+      ctx.lineTo(0, 1080);
+      ctx.closePath();
+      ctx.fill();
+
+      // Sweeping Curved Plowed Road
+      ctx.save();
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.moveTo(-100, 1060);
+      ctx.bezierCurveTo(350, 1020, 750, 800, 1100, 700);
+      ctx.lineTo(1280, 700);
+      ctx.bezierCurveTo(950, 830, 550, 1090, 100, 1090);
+      ctx.closePath();
+      ctx.fill();
+
+      // Centerline
+      ctx.strokeStyle = '#facc15';
+      ctx.lineWidth = 5;
+      ctx.setLineDash([28, 24]);
+      ctx.beginPath();
+      ctx.moveTo(0, 1060);
+      ctx.bezierCurveTo(400, 990, 780, 810, 1160, 700);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+
+      // 3D Snowplow Truck Action (Only in Scenes 1 and 2)
+      if (isGameplay || sceneId === 2) {
+        ctx.save();
+        const truckX = isGameplay ? 720 : 680;
+        const truckY = isGameplay ? 820 : 810;
+        ctx.translate(truckX, truckY);
+        ctx.rotate(-0.18);
+
+        // Shadow
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.65)';
+        ctx.beginPath();
+        ctx.ellipse(0, 45, 210, 65, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Wheels
+        function drawBigWheel(wx, wy, rad) {
+          ctx.save();
+          ctx.translate(wx, wy);
+          ctx.fillStyle = '#090d16';
+          ctx.beginPath();
+          ctx.roundRect(-rad, -rad * 0.7, rad * 2, rad * 1.4, 16);
+          ctx.fill();
+          ctx.fillStyle = '#cbd5e1';
+          ctx.beginPath();
+          ctx.arc(0, 0, rad * 0.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+        drawBigWheel(-130, 26, 36);
+        drawBigWheel(85, 32, 38);
+
+        // Truck Chassis (Bright Orange)
+        ctx.fillStyle = '#ea580c';
+        ctx.beginPath();
+        ctx.roundRect(-160, -56, 270, 80, 20);
+        ctx.fill();
+        ctx.strokeStyle = '#c2410c';
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        // Cab (Warm Gold)
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.roundRect(-40, -120, 145, 80, 22);
+        ctx.fill();
+        ctx.strokeStyle = '#d97706';
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Windshield
+        ctx.fillStyle = '#38bdf8';
+        ctx.beginPath();
+        ctx.roundRect(24, -110, 72, 50, 12);
+        ctx.fill();
+        ctx.strokeStyle = '#bae6fd';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        // Flashing Roof Beacon
+        ctx.fillStyle = '#fbbf24';
+        ctx.shadowColor = '#f59e0b';
+        ctx.shadowBlur = 35;
+        ctx.beginPath();
+        ctx.arc(15, -128, 14, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Headlight Beam
+        ctx.save();
+        const beam = ctx.createRadialGradient(110, -20, 20, 420, 60, 400);
+        beam.addColorStop(0, 'rgba(254, 240, 138, 0.7)');
+        beam.addColorStop(0.5, 'rgba(254, 240, 138, 0.25)');
+        beam.addColorStop(1, 'transparent');
+        ctx.fillStyle = beam;
+        ctx.beginPath();
+        ctx.moveTo(110, -25);
+        ctx.lineTo(520, -70);
+        ctx.lineTo(550, 150);
+        ctx.lineTo(110, -5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // Steel Curved Plow Blade
+        ctx.save();
+        ctx.translate(125, 0);
+        const bladeGrad = ctx.createLinearGradient(0, -60, 40, 50);
+        bladeGrad.addColorStop(0, '#e0f2fe');
+        bladeGrad.addColorStop(0.3, '#38bdf8');
+        bladeGrad.addColorStop(0.8, '#0284c7');
+        bladeGrad.addColorStop(1, '#0369a1');
+        ctx.fillStyle = bladeGrad;
+        ctx.beginPath();
+        ctx.moveTo(0, -60);
+        ctx.bezierCurveTo(45, -35, 52, 20, 24, 50);
+        ctx.lineTo(8, 45);
+        ctx.bezierCurveTo(30, 20, 26, -35, -8, -55);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        ctx.restore(); // end truck
+
+        // Snow Spray & Crystals
+        const sprayX = truckX + 170;
+        const sprayY = truckY - 40;
+        const snowMist = ctx.createRadialGradient(sprayX + 100, sprayY - 60, 30, sprayX + 140, sprayY - 80, 260);
+        snowMist.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+        snowMist.addColorStop(0.4, 'rgba(186, 230, 253, 0.65)');
+        snowMist.addColorStop(0.8, 'rgba(56, 189, 248, 0.25)');
+        snowMist.addColorStop(1, 'transparent');
+        ctx.fillStyle = snowMist;
+        ctx.beginPath();
+        ctx.arc(sprayX + 140, sprayY - 80, 260, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Snow Chunks
+        const chunks = [
+          [sprayX + 45, sprayY - 20, 26], [sprayX + 90, sprayY - 55, 36],
+          [sprayX + 140, sprayY - 90, 48], [sprayX + 210, sprayY - 120, 55],
+          [sprayX + 280, sprayY - 135, 44], [sprayX + 350, sprayY - 130, 32]
+        ];
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#bae6fd';
+        ctx.shadowBlur = 20;
+        for (const [cx, cy, cr] of chunks) {
+          ctx.beginPath();
+          ctx.arc(cx, cy, cr, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    // 2. Build Overlay UI based on sceneId
+    const overlay = document.getElementById('uiOverlay');
+    const promoTitle = document.getElementById('promoTitle');
+    const promoSubtitle = document.getElementById('promoSubtitle');
+
+    if (sceneId === 1) {
+      // SCENE 1: Real Action Gameplay
+      drawBackground(true);
+      promoTitle.className = 'promo-title';
+      promoTitle.textContent = '❄️ 속 시원한 3D 제설 쾌감! ❄️';
+      promoSubtitle.textContent = '눈을 밀어내며 도로를 깨끗하게 청소하세요';
+
+      overlay.innerHTML = `
+        <div class="hud-overlay">
+          <!-- District & Progress -->
+          <div class="hud-top-left">
+            <div class="hud-district">
+              <span>❄️ 산골 제1구역 (District 1)</span>
+            </div>
+            <div class="hud-progress-bg">
+              <div class="hud-progress-fill"></div>
+            </div>
+            <div class="hud-score-row">
+              <span>제설률 94%</span>
+              <span style="color:#fde047;">점수 48,250</span>
+            </div>
+          </div>
+
+          <!-- Combo Multiplier -->
+          <div class="combo-pill">
+            <span style="font-size:36px;">🔥</span>
+            <div style="display:flex; flex-direction:column;">
+              <span class="combo-multiplier">4.5x</span>
+              <span class="combo-label">블리자드 질주!</span>
+            </div>
+          </div>
+
+          <!-- Speedometer & Nitro -->
+          <div class="speedo-box">
+            <div style="display:flex; align-items:baseline; gap:6px;">
+              <span class="speedo-val">58</span>
+              <span class="speedo-unit">KM/H</span>
+            </div>
+            <div style="width:2px; height:32px; background:#334155;"></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="color:#f59e0b; font-size:24px;">⚡</span>
+              <span style="color:#38bdf8; font-size:20px; font-weight:800;">NITRO BOOST</span>
+            </div>
+          </div>
+
+          <!-- Left Touch D-Pad -->
+          <div class="touch-left">
+            <div class="touch-btn">◀ <span>LEFT</span></div>
+            <div class="touch-btn">▶ <span>RIGHT</span></div>
+          </div>
+
+          <!-- Right Touch Pedals -->
+          <div class="touch-right">
+            <div class="pedal-rev">▼ <span style="font-size:12px; font-weight:900;">REV</span></div>
+            <div class="pedal-gas">▲ <span style="font-size:16px; font-weight:900;">GAS</span></div>
+            <div class="pedal-boost">⚡ <span style="font-size:14px; font-weight:900;">BOOST</span></div>
+          </div>
+        </div>
+      `;
+    } else if (sceneId === 2) {
+      // SCENE 2: Atmospheric Title Screen
+      drawBackground(false);
+      promoTitle.className = 'promo-title cyan-theme';
+      promoTitle.textContent = '❄️ 포근한 겨울 제설 어드벤처 ❄️';
+      promoSubtitle.textContent = '동화 같은 설경 속에서 즐기는 힐링 3D 드라이브';
+
+      overlay.innerHTML = `
+        <div style="position:absolute; top:200px; right:120px; width:640px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; z-index:15;">
+          <div style="padding:10px 28px; background:rgba(15,23,42,0.9); border:2px solid #38bdf8; border-radius:999px; color:#38bdf8; font-size:18px; font-weight:900; letter-spacing:2px;">
+            ❄️ 3D ARCADE ADVENTURE ❄️
+          </div>
+          <div style="font-size:92px; font-weight:900; line-height:1.0; letter-spacing:4px; background:linear-gradient(180deg,#fff 0%,#bae6fd 40%,#38bdf8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 8px 0 #0369a1) drop-shadow(0 15px 25px rgba(0,0,0,0.8));">
+            FROST PLOW
+          </div>
+          <div style="padding:14px 40px; background:linear-gradient(90deg,#f59e0b,#fbbf24,#f59e0b); border-radius:22px; color:#0b1528; font-size:24px; font-weight:900; border:3px solid #fef08a; box-shadow:0 8px 25px rgba(245,158,11,0.5);">
+            포근한 겨울 제설 어드벤처
+          </div>
+          <div style="margin-top:14px; padding:18px 52px; background:linear-gradient(90deg,#f59e0b,#f97316); border-radius:24px; color:#0b1528; font-size:26px; font-weight:900; box-shadow:0 12px 35px rgba(245,158,11,0.6); display:flex; align-items:center; gap:12px;">
+            ▶ 제설 시작하기 (Start Game)
+          </div>
+        </div>
+      `;
+    } else if (sceneId === 3) {
+      // SCENE 3: Garage Upgrades
+      drawBackground(false);
+      promoTitle.className = 'promo-title emerald-theme';
+      promoTitle.textContent = '🚜 강력한 제설차로 성능 업그레이드! 🚜';
+      promoSubtitle.textContent = '엔진 최고 속도 · 블레이드 너비 · 부스터 충전율 강화';
+
+      overlay.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span>🔧</span>
+              <span>제설 정비소 (Vehicle Garage)</span>
+            </div>
+            <div class="coins-badge">
+              <span>🟡</span>
+              <span>1,450 COINS</span>
+            </div>
+          </div>
+
+          <div class="upgrade-grid">
+            <div class="upgrade-card">
+              <div class="upgrade-card-header">
+                <div class="upgrade-card-title">🚀 엔진 최고 속도</div>
+                <div class="upgrade-lvl">Lv. 4 / 5</div>
+              </div>
+              <div class="upgrade-bar-bg"><div class="upgrade-bar-fill" style="width:80%;"></div></div>
+              <button class="upgrade-btn">+ 150 🟡 업그레이드</button>
+            </div>
+
+            <div class="upgrade-card">
+              <div class="upgrade-card-header">
+                <div class="upgrade-card-title">🪓 제설 블레이드 너비</div>
+                <div class="upgrade-lvl">Lv. 3 / 5</div>
+              </div>
+              <div class="upgrade-bar-bg"><div class="upgrade-bar-fill" style="width:60%;"></div></div>
+              <button class="upgrade-btn">+ 120 🟡 업그레이드</button>
+            </div>
+
+            <div class="upgrade-card">
+              <div class="upgrade-card-header">
+                <div class="upgrade-card-title">⚡ 부스터 충전율</div>
+                <div class="upgrade-lvl">Lv. 4 / 5</div>
+              </div>
+              <div class="upgrade-bar-bg"><div class="upgrade-bar-fill" style="width:80%;"></div></div>
+              <button class="upgrade-btn">+ 180 🟡 업그레이드</button>
+            </div>
+
+            <div class="upgrade-card">
+              <div class="upgrade-card-header">
+                <div class="upgrade-card-title">📦 눈 적재 호퍼 용량</div>
+                <div class="upgrade-lvl">Lv. 5 / 5 (MAX)</div>
+              </div>
+              <div class="upgrade-bar-bg"><div class="upgrade-bar-fill" style="width:100%; background:#10b981;"></div></div>
+              <button class="upgrade-btn" style="background:#334155; color:#94a3b8; box-shadow:none;">최대 레벨 도달</button>
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (sceneId === 4) {
+      // SCENE 4: Skins & Shop
+      drawBackground(false);
+      promoTitle.className = 'promo-title cyan-theme';
+      promoTitle.textContent = '✨ 개성 넘치는 전용 제설차 스킨 수집! ✨';
+      promoSubtitle.textContent = '클래식 옐로우부터 네온 사이버, 로열 골드 에디션까지';
+
+      overlay.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span>🛍️</span>
+              <span>스킨 쇼룸 & VIP 상점</span>
+            </div>
+            <div class="coins-badge">
+              <span>🟡</span>
+              <span>2,800 COINS</span>
+            </div>
+          </div>
+
+          <div class="skins-grid">
+            <div class="skin-item active">
+              <div class="skin-icon-box">🚜</div>
+              <div class="skin-name">클래식 옐로우</div>
+              <div class="skin-status">장착 중</div>
+            </div>
+
+            <div class="skin-item">
+              <div class="skin-icon-box" style="border-color:#38bdf8;">❄️</div>
+              <div class="skin-name">빙하 블루</div>
+              <div class="skin-status" style="background:#38bdf8; color:#082f49;">보유 중</div>
+            </div>
+
+            <div class="skin-item">
+              <div class="skin-icon-box" style="border-color:#ec4899;">⚡</div>
+              <div class="skin-name">네온 사이버</div>
+              <div class="skin-status locked">500 🟡 해금</div>
+            </div>
+
+            <div class="skin-item">
+              <div class="skin-icon-box" style="border-color:#facc15; box-shadow:0 0 15px rgba(250,204,21,0.5);">👑</div>
+              <div class="skin-name">로열 골드</div>
+              <div class="skin-status" style="background:#f59e0b; color:#451a03;">VIP 에디션</div>
+            </div>
+          </div>
+
+          <!-- In-App Purchase Banner Preview -->
+          <div style="background:rgba(245,158,11,0.15); border:2px dashed #f59e0b; border-radius:20px; padding:18px 28px; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <span style="font-size:36px;">🛡️</span>
+              <div>
+                <div style="font-size:22px; font-weight:900; color:#fde047;">영구 광고 제거 (No-Ads VIP)</div>
+                <div style="font-size:15px; color:#cbd5e1;">전면 및 배너 광고 평생 제거 + 코인 획득량 20% 보너스</div>
+              </div>
+            </div>
+            <div style="padding:10px 26px; border-radius:14px; background:#f59e0b; color:#0b1528; font-size:20px; font-weight:900;">
+              Google Play 지원
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (sceneId === 5) {
+      // SCENE 5: Lucky Wheel & Daily Rewards
+      drawBackground(false);
+      promoTitle.className = 'promo-title';
+      promoTitle.textContent = '🎁 매일 쏟아지는 풍성한 선물과 보너스! 🎁';
+      promoSubtitle.textContent = '매일 무료로 돌리는 행운의 룰렛 & 7일 출석 체크';
+
+      overlay.innerHTML = `
+        <div class="modal-overlay">
+          <div class="modal-header">
+            <div class="modal-title">
+              <span>🎡</span>
+              <span>행운의 룰렛 & 7일 출석 선물</span>
+            </div>
+            <div class="coins-badge">
+              <span>🟡</span>
+              <span>1,250 COINS</span>
+            </div>
+          </div>
+
+          <div class="wheel-container">
+            <!-- Animated Wheel -->
+            <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+              <div class="wheel-disc">
+                <div class="wheel-hub">⭐</div>
+              </div>
+              <button class="upgrade-btn" style="padding:14px 44px; font-size:22px;">🎡 무료 스핀 돌리기!</button>
+            </div>
+
+            <!-- Attendance List -->
+            <div class="rewards-list">
+              <div class="reward-item" style="border-color:#10b981; background:rgba(16,185,129,0.15);">
+                <div class="reward-day">Day 1 (오늘 완료)</div>
+                <div class="reward-val">+ 50 🟡 (수령완료)</div>
+              </div>
+              <div class="reward-item" style="border-color:#f59e0b; box-shadow:0 0 15px rgba(245,158,11,0.25);">
+                <div class="reward-day" style="color:#fde047;">Day 2 (내일 보상)</div>
+                <div class="reward-val">+ 100 🟡 (대기중)</div>
+              </div>
+              <div class="reward-item">
+                <div class="reward-day">Day 3</div>
+                <div class="reward-val">+ 150 🟡</div>
+              </div>
+              <div class="reward-item" style="background:rgba(236,72,153,0.15); border-color:#ec4899;">
+                <div class="reward-day" style="color:#f472b6;">Day 7 (스페셜 보너스)</div>
+                <div class="reward-val" style="color:#f472b6;">+ 500 🟡 & 전용 스킨</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
