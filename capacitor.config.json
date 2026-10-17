@@ -1,0 +1,14 @@
+{
+  "appId": "com.frostplow.game",
+  "appName": "FrostPlow",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "AdMob": {
+      "appId": "ca-app-pub-3719896316126650~9303543829"
+    }
+  }
+}

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047" />
+      <stop offset="50%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+    <linearGradient id="snowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#bae6fd" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+
+  <!-- Alpine Mountain Silhouettes in Background -->
+  <polygon points="120,380 256,160 392,380" fill="#334155" opacity="0.6" />
+  <polygon points="256,160 216,224 256,210 296,224" fill="#ffffff" />
+
+  <polygon points="260,380 370,190 480,380" fill="#1e293b" opacity="0.8" />
+  <polygon points="370,190 338,245 370,230 402,245" fill="#ffffff" />
+
+  <!-- Snow ground drift -->
+  <path d="M 0,380 Q 140,340 256,370 Q 372,400 512,360 L 512,512 L 0,512 Z" fill="url(#snowGrad)" />
+
+  <!-- Hero Snow Plow Tractor -->
+  <!-- Cab -->
+  <rect x="150" y="220" width="160" height="130" rx="20" fill="url(#gold)" />
+  <!-- Glass Window -->
+  <rect x="210" y="235" width="85" height="55" rx="10" fill="#38bdf8" opacity="0.85" />
+  <!-- Engine Hood -->
+  <path d="M 310,270 L 375,285 L 375,350 L 310,350 Z" fill="url(#gold)" />
+
+  <!-- Amber Flashing Beacon -->
+  <circle cx="200" cy="205" r="16" fill="#fbbf24" filter="drop-shadow(0 0 10px #f59e0b)" />
+
+  <!-- Front Plow Blade -->
+  <path d="M 360,250 C 430,270 450,330 460,375 L 390,375 C 385,340 370,300 345,280 Z" fill="url(#bladeGrad)" stroke="#475569" stroke-width="4" />
+
+  <!-- Wheels -->
+  <circle cx="180" cy="370" r="46" fill="#0f172a" stroke="#64748b" stroke-width="8" />
+  <circle cx="180" cy="370" r="18" fill="#94a3b8" />
+  <circle cx="330" cy="370" r="46" fill="#0f172a" stroke="#64748b" stroke-width="8" />
+  <circle cx="330" cy="370" r="18" fill="#94a3b8" />
+
+  <!-- Snow Spray Flakes -->
+  <circle cx="430" cy="240" r="9" fill="#ffffff" />
+  <circle cx="460" cy="220" r="6" fill="#ffffff" />
+  <circle cx="475" cy="260" r="7" fill="#ffffff" />
+  <circle cx="415" cy="200" r="5" fill="#ffffff" />
+</svg>

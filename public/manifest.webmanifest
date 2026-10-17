@@ -1,0 +1,38 @@
+{
+  "name": "FrostPlow: Cozy Snow Clearance",
+  "short_name": "FrostPlow",
+  "description": "A cozy 3D isometric snow-plowing arcade game with upgrades, combo multipliers, and relaxing synth sound effects.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b1528",
+  "theme_color": "#0b1528",
+  "lang": "en",
+  "scope": "/",
+  "id": "/",
+  "orientation": "any",
+  "categories": [
+    "games",
+    "arcade",
+    "simulation"
+  ],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

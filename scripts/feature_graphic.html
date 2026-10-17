@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>FrostPlow Feature Graphic 1024x500</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=Noto+Sans+KR:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body, html {
+      width: 1024px;
+      height: 500px;
+      overflow: hidden;
+      background: #050d1a;
+      font-family: 'Fredoka', 'Noto Sans KR', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    #stage {
+      position: relative;
+      width: 1024px;
+      height: 500px;
+      overflow: hidden;
+    }
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1024px;
+      height: 500px;
+      z-index: 1;
+    }
+    /* Overlay Title Card (Right Side) */
+    .title-card {
+      position: absolute;
+      top: 45px;
+      right: 40px;
+      width: 480px;
+      z-index: 10;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+    }
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 20px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1.5px solid #38bdf8;
+      border-radius: 999px;
+      color: #38bdf8;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.35);
+      white-space: nowrap;
+    }
+    .main-logo-text {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: 3px;
+      white-space: nowrap;
+      background: linear-gradient(180deg, #ffffff 0%, #e0f2fe 35%, #7dd3fc 65%, #0284c7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 6px 0 #03426e) drop-shadow(0 12px 18px rgba(0,0,0,0.85));
+    }
+    .sub-badge {
+      display: inline-block;
+      padding: 10px 28px;
+      background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+      border-radius: 16px;
+      color: #0b1528;
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.55);
+      border: 2px solid #fef08a;
+      white-space: nowrap;
+    }
+    .tagline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 20px;
+      background: rgba(11, 21, 40, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 999px;
+      color: #e2e8f0;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <canvas id="canvas" width="1024" height="500"></canvas>
+
+    <div class="title-card">
+      <div class="badge-top">
+        <span>❄️ 3D ARCADE ADVENTURE ❄️</span>
+      </div>
+      <div class="main-logo-text">
+        FROST PLOW
+      </div>
+      <div class="sub-badge">
+        포근한 겨울 제설 어드벤처
+      </div>
+      <div class="tagline-pill">
+        <span>🚜 시원한 제설</span>
+        <span>•</span>
+        <span>⚡ 콤보 부스터</span>
+        <span>•</span>
+        <span>🌟 차량 업그레이드</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const W = 1024;
+    const H = 500;
+
+    // 1. Deep Night Sky with Twilight Gradient
+    const sky = ctx.createLinearGradient(0, 0, 0, H);
+    sky.addColorStop(0, '#040914');
+    sky.addColorStop(0.35, '#0a1d3b');
+    sky.addColorStop(0.65, '#122b54');
+    sky.addColorStop(1, '#1e293b');
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. Northern Lights / Aurora Borealis
+    function drawAurora(yBase, color1, color2, amplitude, freq, alpha) {
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.beginPath();
+      ctx.moveTo(0, yBase);
+      for (let x = 0; x <= W; x += 20) {
+        const y = yBase + Math.sin(x * freq) * amplitude + Math.cos(x * freq * 1.5) * (amplitude * 0.5);
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(W, yBase + 120);
+      ctx.lineTo(0, yBase + 120);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0, yBase - amplitude, 0, yBase + 120);
+      grad.addColorStop(0, 'transparent');
+      grad.addColorStop(0.3, color1);
+      grad.addColorStop(0.7, color2);
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+    }
+    drawAurora(60, '#06b6d4', '#10b981', 35, 0.004, 0.45);
+    drawAurora(90, '#8b5cf6', '#3b82f6', 45, 0.003, 0.35);
+    drawAurora(130, '#10b981', '#06b6d4', 30, 0.005, 0.4);
+
+    // 3. Twinkling Stars
+    ctx.fillStyle = '#ffffff';
+    const stars = [
+      [60, 40, 1.5, 0.8], [120, 80, 2, 0.9], [190, 30, 1.2, 0.7], [280, 60, 2.5, 0.95],
+      [360, 25, 1.5, 0.8], [440, 75, 1.8, 0.85], [520, 45, 1.2, 0.6], [610, 30, 2.2, 0.9],
+      [700, 80, 1.5, 0.75], [780, 40, 2, 0.9], [860, 65, 1.8, 0.85], [940, 25, 2.2, 0.9],
+      [990, 70, 1.5, 0.7], [150, 120, 1.2, 0.6], [320, 110, 1.5, 0.7], [820, 120, 1.5, 0.8]
+    ];
+    for (const [sx, sy, sr, sa] of stars) {
+      ctx.globalAlpha = sa;
+      ctx.beginPath();
+      ctx.arc(sx, sy, sr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1.0;
+
+    // Glowing Moon
+    ctx.save();
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#bae6fd';
+    ctx.shadowBlur = 35;
+    ctx.beginPath();
+    ctx.arc(140, 75, 28, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // 4. Distant Mountain Silhouettes (Layer 1 - deep blue)
+    ctx.fillStyle = '#0f172a';
+    ctx.beginPath();
+    ctx.moveTo(0, 260);
+    ctx.lineTo(120, 160);
+    ctx.lineTo(240, 220);
+    ctx.lineTo(380, 140);
+    ctx.lineTo(540, 250);
+    ctx.lineTo(720, 150);
+    ctx.lineTo(890, 230);
+    ctx.lineTo(1024, 160);
+    ctx.lineTo(1024, 340);
+    ctx.lineTo(0, 340);
+    ctx.closePath();
+    ctx.fill();
+
+    // Snow caps on distant mountains
+    ctx.fillStyle = '#e0f2fe';
+    ctx.beginPath();
+    ctx.moveTo(120, 160);
+    ctx.lineTo(100, 185);
+    ctx.lineTo(115, 180);
+    ctx.lineTo(125, 190);
+    ctx.lineTo(145, 185);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(380, 140);
+    ctx.lineTo(350, 175);
+    ctx.lineTo(370, 170);
+    ctx.lineTo(385, 185);
+    ctx.lineTo(415, 170);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(720, 150);
+    ctx.lineTo(690, 185);
+    ctx.lineTo(715, 180);
+    ctx.lineTo(730, 190);
+    ctx.lineTo(755, 175);
+    ctx.closePath();
+    ctx.fill();
+
+    // 5. Midground Mountain & Forest Ridge (Layer 2)
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath();
+    ctx.moveTo(0, 270);
+    ctx.bezierCurveTo(200, 240, 400, 280, 600, 250);
+    ctx.bezierCurveTo(800, 220, 950, 260, 1024, 240);
+    ctx.lineTo(1024, 400);
+    ctx.lineTo(0, 400);
+    ctx.closePath();
+    ctx.fill();
+
+    // Cozy Pine Trees Function
+    function drawPineTree(x, y, scale, snowAlpha) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+
+      // Trunk
+      ctx.fillStyle = '#451a03';
+      ctx.fillRect(-4, 0, 8, 14);
+
+      // 3 Tiers of Pine foliage
+      const tiers = [
+        { y: -10, w: 22, h: 20 },
+        { y: -24, w: 18, h: 18 },
+        { y: -36, w: 12, h: 16 }
+      ];
+
+      for (const t of tiers) {
+        // Dark green foliage
+        ctx.fillStyle = '#064e3b';
+        ctx.beginPath();
+        ctx.moveTo(0, t.y - t.h);
+        ctx.lineTo(t.w, t.y);
+        ctx.lineTo(-t.w, t.y);
+        ctx.closePath();
+        ctx.fill();
+
+        // Snow layer on top of branches
+        ctx.fillStyle = `rgba(240, 249, 255, ${snowAlpha || 0.9})`;
+        ctx.beginPath();
+        ctx.moveTo(0, t.y - t.h);
+        ctx.lineTo(t.w * 0.7, t.y - t.h * 0.3);
+        ctx.lineTo(t.w * 0.4, t.y - t.h * 0.4);
+        ctx.lineTo(0, t.y - t.h * 0.2);
+        ctx.lineTo(-t.w * 0.4, t.y - t.h * 0.4);
+        ctx.lineTo(-t.w * 0.7, t.y - t.h * 0.3);
+        ctx.closePath();
+        ctx.fill();
+      }
+
+      ctx.restore();
+    }
+
+    // Midground Pine Forest
+    const midTrees = [
+      [30, 280, 0.8], [65, 275, 1.0], [105, 285, 0.85], [150, 270, 0.75],
+      [780, 260, 0.75], [820, 250, 0.9], [860, 255, 1.1], [910, 245, 0.85], [960, 250, 1.0], [1000, 240, 0.8]
+    ];
+    for (const [tx, ty, ts] of midTrees) {
+      drawPineTree(tx, ty, ts, 0.85);
+    }
+
+    // Cozy Village Cabins (Mid-Right)
+    function drawCabin(x, y, w, h) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Cabin Body
+      ctx.fillStyle = '#331800';
+      ctx.fillRect(-w/2, -h, w, h);
+
+      // Golden warm glowing window
+      ctx.fillStyle = '#fbbf24';
+      ctx.shadowColor = '#f59e0b';
+      ctx.shadowBlur = 15;
+      ctx.fillRect(-w/2 + 6, -h + 8, w/3, h/2);
+      ctx.shadowBlur = 0;
+
+      // Window cross frame
+      ctx.strokeStyle = '#1e0c00';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(-w/2 + 6, -h + 8, w/3, h/2);
+
+      // Snow-covered roof
+      ctx.fillStyle = '#f8fafc';
+      ctx.beginPath();
+      ctx.moveTo(0, -h - 16);
+      ctx.lineTo(w/2 + 8, -h + 2);
+      ctx.lineTo(-w/2 - 8, -h + 2);
+      ctx.closePath();
+      ctx.fill();
+
+      // Chimney & smoke
+      ctx.fillStyle = '#64748b';
+      ctx.fillRect(w/4, -h - 22, 6, 14);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.beginPath();
+      ctx.arc(w/4 + 3, -h - 28, 5, 0, Math.PI * 2);
+      ctx.arc(w/4 + 6, -h - 38, 7, 0, Math.PI * 2);
+      ctx.arc(w/4 + 10, -h - 50, 10, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
+    drawCabin(740, 280, 44, 26);
+    drawCabin(890, 270, 38, 22);
+
+    // 6. Foreground Snowy Ground & Winding Road
+    // Snow banks
+    ctx.fillStyle = '#e2e8f0';
+    ctx.beginPath();
+    ctx.moveTo(0, 310);
+    ctx.bezierCurveTo(250, 300, 500, 320, 750, 300);
+    ctx.bezierCurveTo(880, 290, 960, 310, 1024, 300);
+    ctx.lineTo(1024, 500);
+    ctx.lineTo(0, 500);
+    ctx.closePath();
+    ctx.fill();
+
+    // 3D Sweeping Cleaned Asphalt Road (Plowed path)
+    ctx.save();
+    ctx.fillStyle = '#1e293b';
+    ctx.beginPath();
+    ctx.moveTo(-50, 490);
+    ctx.bezierCurveTo(150, 470, 350, 370, 520, 330);
+    ctx.lineTo(600, 330);
+    ctx.bezierCurveTo(450, 390, 260, 510, 60, 510);
+    ctx.closePath();
+    ctx.fill();
+
+    // Road Texture & Centerline
+    ctx.strokeStyle = '#facc15';
+    ctx.lineWidth = 3;
+    ctx.setLineDash([16, 14]);
+    ctx.beginPath();
+    ctx.moveTo(0, 490);
+    ctx.bezierCurveTo(180, 460, 360, 375, 540, 330);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Plowed Snow Berms on side of road
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#94a3b8';
+    ctx.shadowBlur = 10;
+    ctx.beginPath();
+    ctx.moveTo(-30, 460);
+    ctx.bezierCurveTo(120, 430, 310, 340, 480, 310);
+    ctx.lineTo(510, 325);
+    ctx.bezierCurveTo(340, 355, 140, 450, -10, 485);
+    ctx.closePath();
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // 7. HERO SNOWPLOW TRUCK (Isometric 3D Perspective)
+    ctx.save();
+    const truckX = 330;
+    const truckY = 385;
+    ctx.translate(truckX, truckY);
+    ctx.rotate(-0.16); // Dynamic driving angle
+
+    // Vehicle Shadow
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.65)';
+    ctx.beginPath();
+    ctx.ellipse(0, 22, 105, 34, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Wheels / Big Heavy Tires
+    function drawWheel(wx, wy, radius) {
+      ctx.save();
+      ctx.translate(wx, wy);
+      ctx.fillStyle = '#090d16';
+      ctx.beginPath();
+      ctx.roundRect(-radius, -radius * 0.7, radius * 2, radius * 1.4, 8);
+      ctx.fill();
+
+      // Rim
+      ctx.fillStyle = '#cbd5e1';
+      ctx.beginPath();
+      ctx.arc(0, 0, radius * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Lug bolts
+      ctx.fillStyle = '#334155';
+      ctx.beginPath();
+      ctx.arc(0, 0, radius * 0.22, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    drawWheel(-68, 14, 18);
+    drawWheel(42, 18, 19);
+
+    // Truck Body / Chassis (Vibrant Plow Orange & Gold)
+    ctx.fillStyle = '#ea580c';
+    ctx.beginPath();
+    ctx.roundRect(-85, -28, 140, 42, 10);
+    ctx.fill();
+    ctx.strokeStyle = '#c2410c';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Bed cargo / Snow hopper in back
+    ctx.fillStyle = '#9a3412';
+    ctx.beginPath();
+    ctx.roundRect(-82, -42, 60, 20, 6);
+    ctx.fill();
+
+    // Cab / Cabin (Bright Yellow & Warm highlights)
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    ctx.roundRect(-22, -62, 75, 42, 12);
+    ctx.fill();
+    ctx.strokeStyle = '#d97706';
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // Windshield Glass (Reflective Cyan Blue)
+    ctx.fillStyle = '#38bdf8';
+    ctx.beginPath();
+    ctx.roundRect(10, -56, 38, 26, 6);
+    ctx.fill();
+    ctx.strokeStyle = '#bae6fd';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Windshield glare reflection
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.beginPath();
+    ctx.moveTo(14, -34);
+    ctx.lineTo(24, -52);
+    ctx.lineTo(32, -52);
+    ctx.lineTo(22, -34);
+    ctx.closePath();
+    ctx.fill();
+
+    // Side Door Window
+    ctx.fillStyle = '#0284c7';
+    ctx.beginPath();
+    ctx.roundRect(-14, -54, 20, 22, 4);
+    ctx.fill();
+
+    // Roof Warning Beacon Light (Flashing Amber)
+    ctx.fillStyle = '#fbbf24';
+    ctx.shadowColor = '#f59e0b';
+    ctx.shadowBlur = 20;
+    ctx.beginPath();
+    ctx.arc(8, -66, 7, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+
+    // Headlights (Super Bright LED Cones)
+    ctx.fillStyle = '#fef08a';
+    ctx.shadowColor = '#fef08a';
+    ctx.shadowBlur = 25;
+    ctx.fillRect(48, -16, 10, 8);
+    ctx.shadowBlur = 0;
+
+    // Headlight Beam Cone illuminating road ahead
+    ctx.save();
+    const beam = ctx.createRadialGradient(58, -12, 10, 200, 30, 200);
+    beam.addColorStop(0, 'rgba(254, 240, 138, 0.6)');
+    beam.addColorStop(0.5, 'rgba(254, 240, 138, 0.2)');
+    beam.addColorStop(1, 'transparent');
+    ctx.fillStyle = beam;
+    ctx.beginPath();
+    ctx.moveTo(58, -14);
+    ctx.lineTo(260, -40);
+    ctx.lineTo(280, 80);
+    ctx.lineTo(58, -4);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // HEAVY-DUTY PLOW BLADE (Curved Steel Blade with Hydraulic Arms)
+    ctx.save();
+    ctx.translate(65, 0);
+
+    // Hydraulic Support Arms
+    ctx.fillStyle = '#475569';
+    ctx.fillRect(-10, -8, 16, 6);
+    ctx.fillRect(-10, 6, 16, 6);
+
+    // Blade Front (Curved Bright Cyan/Steel Blade)
+    const bladeGrad = ctx.createLinearGradient(0, -32, 22, 28);
+    bladeGrad.addColorStop(0, '#e0f2fe');
+    bladeGrad.addColorStop(0.3, '#38bdf8');
+    bladeGrad.addColorStop(0.8, '#0284c7');
+    bladeGrad.addColorStop(1, '#0369a1');
+    ctx.fillStyle = bladeGrad;
+    ctx.beginPath();
+    ctx.moveTo(0, -32);
+    ctx.bezierCurveTo(24, -20, 28, 10, 12, 26);
+    ctx.lineTo(4, 24);
+    ctx.bezierCurveTo(16, 10, 14, -18, -4, -30);
+    ctx.closePath();
+    ctx.fill();
+
+    // Steel Edge / Wear strip
+    ctx.fillStyle = '#f8fafc';
+    ctx.beginPath();
+    ctx.arc(12, 24, 4, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
+
+    ctx.restore(); // Exit truck transform
+
+    // 8. DYNAMIC ROARING SNOW SPRAY & ICE PARTICLES (Curling off plow blade)
+    ctx.save();
+    const sprayOriginX = truckX + 85;
+    const sprayOriginY = truckY - 20;
+
+    // Glowing Frost Mist
+    const frostMist = ctx.createRadialGradient(sprayOriginX + 60, sprayOriginY - 30, 20, sprayOriginX + 80, sprayOriginY - 40, 140);
+    frostMist.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    frostMist.addColorStop(0.4, 'rgba(186, 230, 253, 0.65)');
+    frostMist.addColorStop(0.8, 'rgba(56, 189, 248, 0.25)');
+    frostMist.addColorStop(1, 'transparent');
+    ctx.fillStyle = frostMist;
+    ctx.beginPath();
+    ctx.arc(sprayOriginX + 80, sprayOriginY - 40, 140, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Flying Snow Chunks & Puffs
+    const snowPuffs = [
+      [sprayOriginX + 25, sprayOriginY - 10, 14],
+      [sprayOriginX + 45, sprayOriginY - 28, 18],
+      [sprayOriginX + 70, sprayOriginY - 45, 24],
+      [sprayOriginX + 105, sprayOriginY - 60, 28],
+      [sprayOriginX + 140, sprayOriginY - 70, 22],
+      [sprayOriginX + 175, sprayOriginY - 68, 16],
+      [sprayOriginX + 80, sprayOriginY - 20, 16],
+      [sprayOriginX + 120, sprayOriginY - 35, 20]
+    ];
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = '#bae6fd';
+    ctx.shadowBlur = 12;
+    for (const [px, py, pr] of snowPuffs) {
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.shadowBlur = 0;
+
+    // Sparkling Ice Crystals & Particles
+    for (let i = 0; i < 40; i++) {
+      const pdist = Math.random() * 220;
+      const pangle = -0.5 - Math.random() * 0.9;
+      const px = sprayOriginX + Math.cos(pangle) * pdist;
+      const py = sprayOriginY + Math.sin(pangle) * pdist;
+      const pr = 1 + Math.random() * 3.5;
+
+      ctx.fillStyle = Math.random() > 0.4 ? '#ffffff' : '#7dd3fc';
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.restore();
+
+    // 9. Floating foreground decorative snowflakes
+    function drawSnowflake(fx, fy, size, alpha) {
+      ctx.save();
+      ctx.translate(fx, fy);
+      ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+      ctx.lineWidth = 1.5;
+      for (let i = 0; i < 4; i++) {
+        ctx.rotate(Math.PI / 4);
+        ctx.beginPath();
+        ctx.moveTo(-size, 0);
+        ctx.lineTo(size, 0);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    drawSnowflake(80, 220, 8, 0.7);
+    drawSnowflake(240, 120, 10, 0.85);
+    drawSnowflake(520, 80, 12, 0.6);
+    drawSnowflake(740, 110, 7, 0.5);
+    drawSnowflake(980, 180, 9, 0.75);
+
+    // 10. Foreground Left Pine Tree (adds rich depth of field)
+    drawPineTree(25, 470, 1.8, 0.95);
+  </script>
+</body>
+</html>

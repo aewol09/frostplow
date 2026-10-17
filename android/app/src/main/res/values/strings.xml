@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FrostPlow</string>
+    <string name="title_activity_main">FrostPlow</string>
+    <string name="package_name">com.frostplow.game</string>
+    <string name="custom_url_scheme">com.frostplow.game</string>
+</resources>
